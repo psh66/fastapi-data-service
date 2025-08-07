@@ -1,0 +1,15 @@
+# 排除虚拟环境目录
+venv/
+.venv/
+env/
+.env/
+
+# 排除依赖安装缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 排除本地环境配置（如 .env 文件，含敏感信息）
+.env
+.env.local

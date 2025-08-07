@@ -79,7 +79,40 @@ pip install email-validator
 
 # 安装 Python-Multipart
 pip install python-multipart
+
+# 1. 处理 JWT 等加密逻辑（报错提示缺少 `jose`）  
+pip install python-jose  
+
+# 2. 处理密码哈希/验证（报错提示缺少 `passlib`）  
+pip install passlib  
 ```
+
+是！Python 版本差异会导致 **依赖包兼容性问题**（如某些包对 Python 3.11 支持不全，或语法适配问题）。  
+
+### 解决步骤（极简版）：  
+1. **确认项目要求的 Python 版本**（看文档/`README`，若没写，尝试 `Python 3.10` 通用兼容版）。  
+2. **新建对应版本的虚拟环境**（假设项目需要 `Python 3.10`）：  
+   ```bash
+   # 先退出当前虚拟环境
+   deactivate  
+   # 用 Python 3.10 创建新虚拟环境（路径按需改）
+   C:\Python310\python.exe -m venv venv_py310  
+   # 激活（Windows PowerShell）
+   .\venv_py310\Scripts\activate  
+   ```  
+3. **强制重装依赖**（用新版 `pip` + 清缓存）：  
+   ```bash
+   pip install --upgrade pip  
+   pip cache purge  
+   pip install -r requirements.txt  
+   ```  
+
+
+### 关键逻辑：  
+- 若原项目基于 `Python 3.10` 开发，`3.11` 可能触发包的**语法/API 兼容问题**（如 `pydantic` 旧版对 `3.11` 支持不足）。  
+- 换环境后仍报错 → 逐个替换 `requirements.txt` 里的包为**兼容版本**（比如 `pydantic==2.0.0` 改 `pydantic==1.10.12` 适配旧 Python）。  
+
+（本质：Python 大版本迭代会引发依赖适配问题，“切版本+清环境”是最快验证方式 ）
 
 ## 配置环境变量
 ### 必要环境变量说明

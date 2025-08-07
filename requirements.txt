@@ -12,3 +12,8 @@ pydantic-settings>=2.0.0
 email-validator>=2.0.0
 # 文件上传支持
 python-multipart>=0.0.6
+# JWT 加密（根据实际版本调整，如 python-jose>=3.0.0）
+# python-jose>=3.3.0,<4.0.0  
+
+# 密码哈希（根据实际版本调整，如 passlib>=1.7.0）
+# passlib>=1.7.4,<2.0.0  
