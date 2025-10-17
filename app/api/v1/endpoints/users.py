@@ -10,7 +10,7 @@ router = APIRouter()
 
 # 查询用户列表（参考 item 的 read_items）
 @router.get("/", response_model=list[User])
-def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),current_user: DBUser = Depends(get_current_user)):  # 添加登录依赖（仅活跃用户可访问):
+def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db),current_user: DBUser = Depends(get_current_user)):  # 添加登录依赖
     users = get_users(db, skip=skip, limit=limit)
     return users
 
