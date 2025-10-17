@@ -4,11 +4,12 @@ class UserBase(BaseModel):
     email: EmailStr
 
 class UserCreate(UserBase):
+    # login_name: str
     password: str
 
 class User(UserBase):
     id: int
     is_active: bool
-    
+    # login_name: str
     class Config:
         from_attributes = True  # 允许从 ORM 对象创建 Pydantic 模型

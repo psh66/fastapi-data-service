@@ -9,7 +9,7 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
-    
+    # login_name = Column(String(50), unique=True, nullable=False, index=True)  # 长度50、唯一、必填、加索引
     items = relationship("Item", back_populates="owner")
 
 class Item(Base):
