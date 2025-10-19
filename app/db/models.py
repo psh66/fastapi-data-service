@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String ,Text
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String ,Text,Float, Integer
 from sqlalchemy.orm import relationship
 from app.db.session import Base
 
@@ -28,3 +28,18 @@ class PetDisease(Base):
     name = Column(String(100), index=True, nullable=False)  # 疾病名称
     symptoms = Column(Text, nullable=False)  # 清洗后的症状描述
     source_url = Column(String(255))  # 爬取数据的来源URL
+class Movie(Base):
+    __tablename__ = "movies"
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(255))
+    intro = Column(String(500))
+    rating = Column(Float)
+    source_url = Column(String(255))
+
+class Product(Base):
+    __tablename__ = "products"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(255))
+    price = Column(Float)
+    comment_count = Column(Integer)
+    source_url = Column(String(255))
