@@ -8,6 +8,12 @@ from app.db.models import Base
 from app.core.security import oauth2_scheme
 from app.api.deps import bearer_scheme
 
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(module)s - %(message)s"
+)
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(

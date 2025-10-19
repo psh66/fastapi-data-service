@@ -1,4 +1,4 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String ,Text
 from sqlalchemy.orm import relationship
 from app.db.session import Base
 
@@ -21,3 +21,10 @@ class Item(Base):
     owner_id = Column(Integer, ForeignKey("users.id"))
     
     owner = relationship("User", back_populates="items")
+
+class PetDisease(Base):
+    __tablename__ = "pet_diseases"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(100), index=True, nullable=False)  # 疾病名称
+    symptoms = Column(Text, nullable=False)  # 清洗后的症状描述
+    source_url = Column(String(255))  # 爬取数据的来源URL

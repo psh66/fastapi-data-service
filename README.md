@@ -85,6 +85,24 @@ pip install python-jose
 
 # 2. 处理密码哈希/验证（报错提示缺少 `passlib`）  
 pip install passlib  
+
+#让 passlib 正常使用 bcrypt 算法来做密码哈希
+pip install bcrypt
+
+pip uninstall bcrypt
+pip install bcrypt==3.2.2
+
+#爬虫部分
+#beautifulsoup4（HTML 解析库）作用：用于解析爬取到的 HTML 页面，提取电影名称、简介等数据。
+pip install beautifulsoup4
+
+#fake-useragent（随机请求头生成工具） 生成随机的浏览器标识（User-Agent），模拟真实用户请求，避免被网站反爬。
+pip install fake-useragent
+
+#requests（HTTP 请求库）
+#作用：发送 HTTP 请求，获取目标网页的 HTML 内容（项目中通过request_utils.py封装了该库的功能）
+pip install requests
+
 ```
 
 是！Python 版本差异会导致 **依赖包兼容性问题**（如某些包对 Python 3.11 支持不全，或语法适配问题）。  

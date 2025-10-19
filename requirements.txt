@@ -16,4 +16,5 @@ python-multipart>=0.0.6
 # python-jose>=3.3.0,<4.0.0  
 
 # 密码哈希（根据实际版本调整，如 passlib>=1.7.0）
-# passlib>=1.7.4,<2.0.0  
+# passlib>=1.7.4,<2.0.0
+
