@@ -13,3 +13,5 @@ __pycache__/
 # 排除本地环境配置（如 .env 文件，含敏感信息）
 .env
 .env.local
+*.db
+*.db-journal
