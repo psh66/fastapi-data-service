@@ -1,5 +1,6 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String ,Text,Float, Integer
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String ,Text,Float, Integer ,DateTime
 from sqlalchemy.orm import relationship
+from datetime import datetime
 from app.db.session import Base
 
 class User(Base):
@@ -43,3 +44,13 @@ class Product(Base):
     price = Column(Float)
     comment_count = Column(Integer)
     source_url = Column(String(255))
+
+
+class ZhihuHot(Base):
+    __tablename__ = "zhihu_hot"  # 表名
+    id = Column(Integer, primary_key=True, index=True)
+    rank = Column(Integer, comment="热榜排名")  # 排名（整数）
+    title = Column(String(500), comment="热榜标题")  # 标题（长文本）
+    hot_value = Column(String(50), comment="热度值")  # 热度（如“100.5万”）
+    url = Column(String(500), comment="热榜链接")  # 完整URL
+    crawl_time = Column(DateTime, default=datetime.now, comment="爬取时间")  # 记录爬取时间

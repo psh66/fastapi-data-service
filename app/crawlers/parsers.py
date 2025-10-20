@@ -1,18 +1,24 @@
 def parse_data(soup, config):
-    """根据配置动态解析页面数据"""
     items = soup.select(config["list_selector"])
     result = []
     for item in items:
         data = {}
         for field, (selector, method, *default) in config["fields"].items():
             elem = item.select_one(selector)
+            # 处理元素不存在的情况，使用默认值
             if not elem:
                 data[field] = default[0] if default else None
                 continue
-            # 根据提取方法（text/attr等）处理
             if method == "text":
                 data[field] = elem.text.strip()
-            elif method == "attr":
-                data[field] = elem.get(selector.split("@")[-1], "").strip()  # 支持提取属性（如img@src）
+            elif method == "elem":
+                data[field] = elem  # 存储标签元素
+        # 处理URL：若url_elem为空，设为None，否则提取href
+        if "url_elem" in data:
+            if data["url_elem"] is not None:
+                data["url"] = data["url_elem"].get("href", "")  # 提取链接
+            else:
+                data["url"] = None  # 空值处理
+            del data["url_elem"]  # 删除临时字段
         result.append(data)
     return result
