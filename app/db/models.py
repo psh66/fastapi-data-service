@@ -46,11 +46,17 @@ class Product(Base):
     source_url = Column(String(255))
 
 
-class ZhihuHot(Base):
-    __tablename__ = "zhihu_hot"  # 表名
+class ZhihuHot(Base):  # 继承Base基类（SQLAlchemy要求，用于注册模型元数据）
+    __tablename__ = "zhihu_hot"  # 数据库表名（必须小写，下划线分隔，与模型名对应）
+    # 主键id（自增，唯一标识每条数据，数据库自动维护）
     id = Column(Integer, primary_key=True, index=True)
-    rank = Column(Integer, comment="热榜排名")  # 排名（整数）
-    title = Column(String(500), comment="热榜标题")  # 标题（长文本）
-    hot_value = Column(String(50), comment="热度值")  # 热度（如“100.5万”）
-    url = Column(String(500), comment="热榜链接")  # 完整URL
-    crawl_time = Column(DateTime, default=datetime.now, comment="爬取时间")  # 记录爬取时间
+    # 热榜排名（整数类型，对应清洗后的rank字段，必须是int）
+    rank = Column(Integer, comment="热榜排名")
+    # 热榜标题（字符串，最长500字符，对应清洗后title字段）
+    title = Column(String(500), comment="热榜标题")
+    # 热度值（字符串，如"100.5万"，对应清洗后hot_value字段）
+    hot_value = Column(String(50), comment="热度值")
+    # 热榜链接（完整URL，字符串，对应清洗后url字段）
+    url = Column(String(500), comment="热榜链接")
+    # 爬取时间（自动填充当前时间，无需清洗后数据提供，方便追溯）
+    crawl_time = Column(DateTime, default=datetime.now, comment="爬取时间")

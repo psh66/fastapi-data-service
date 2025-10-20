@@ -10,9 +10,9 @@ def get_random_headers():
     """模拟真实浏览器的请求头，避免被网站识别为爬虫"""
     ua = UserAgent()  # 初始化UA生成器
     return {
-        "User-Agent": ua.random,  # 随机生成浏览器标识（如Chrome、Firefox等）
+       # "User-Agent": ua.random,  # 随机生成浏览器标识（如Chrome、Firefox等）
 
-        #"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36",
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",  # 声明可接收的内容类型
         "Referer": "https://www.baidu.com/"  # 模拟“从百度跳转”，降低反爬概率
     }

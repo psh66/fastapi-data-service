@@ -18,7 +18,7 @@ class UserRequest(BaseModel):
     # role: str = "user"
 
     class Config:
-        orm_mode = True  # 支持从ORM模型转换
+          from_attributes = True  # 支持从ORM模型转换
 
 
 # 2. 定义Bearer认证方案
