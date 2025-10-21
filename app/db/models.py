@@ -60,3 +60,16 @@ class ZhihuHot(Base):  # 继承Base基类（SQLAlchemy要求，用于注册模�
     url = Column(String(500), comment="热榜链接")
     # 爬取时间（自动填充当前时间，无需清洗后数据提供，方便追溯）
     crawl_time = Column(DateTime, default=datetime.now, comment="爬取时间")
+
+class GitHubTrending(Base):
+    __tablename__ = "github_trending"
+    id = Column(Integer, primary_key=True, index=True)
+    # repo_name = Column(String(255), unique=True, index=True, comment="项目名称（owner/repo）")
+    repo_name = Column(String(255), index=True, comment="项目名称（owner/repo）")
+    repo_url = Column(String(255), comment="项目链接")
+    description = Column(String(500), comment="项目描述")
+    language = Column(String(50), comment="主编程语言")
+    stars = Column(Integer, comment="星标数")
+    forks = Column(Integer, comment="Fork 数")
+    today_stars = Column(Integer, comment="今日新增星标数")
+    crawl_time = Column(DateTime, default=datetime.now, comment="爬取时间")

@@ -1,3 +1,4 @@
+from datetime import datetime
 def clean_price(price_str):
     """清洗价格：去除¥符号，转换为浮点数"""
     if not price_str:
@@ -79,3 +80,38 @@ def clean_zhihu_hot_item(raw_item: dict, rules: dict) -> dict:
 def clean_zhihu_hot_list(raw_list: list, rules: dict) -> list:
     """批量清洗知乎热榜列表（调用单条清洗函数处理所有数据）"""
     return [clean_zhihu_hot_item(item, rules) for item in raw_list if item]  # 过滤空数据（如None、空字典）
+
+# 补充到 app/data_cleaning/pipelines.py
+def clean_github_item(raw_item: dict, rules: dict) -> dict:
+    cleaned_item = {}
+    for field, rule in rules.items():
+        raw_value = raw_item.get(field, None)
+        if raw_value is None:
+            if rule.get("required", False):
+                cleaned_item[field] = rule.get("default", "")
+            continue
+        # 处理字符替换
+        if "replace" in rule:
+            for old, new in rule["replace"]:
+                raw_value = raw_value.replace(old, new)
+        # 类型转换
+        if "cast" in rule:
+            if rule["cast"] == "int":
+                raw_value = int(float(raw_value) if "." in raw_value else raw_value)
+            elif rule["cast"] == "float":
+                raw_value = float(raw_value)
+        cleaned_item[field] = raw_value
+    # 保留未配置规则的字段
+    for field in raw_item:
+        if field not in cleaned_item:
+            cleaned_item[field] = raw_item[field]
+    return cleaned_item
+
+def clean_github_list(raw_data, rules):
+    cleaned_data = []
+    for item in raw_data:
+        # 假设 crawl_time 是字符串格式，如 '2025-10-21 11:31:24'
+        item['crawl_time'] = datetime.strptime(item['crawl_time'], '%Y-%m-%d %H:%M:%S')
+        cleaned_data.append(item)
+        print(f"清洗后剩余 {len(cleaned_data)} 条数据")
+    return cleaned_data

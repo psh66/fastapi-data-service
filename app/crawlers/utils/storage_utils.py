@@ -1,3 +1,5 @@
+from app.db.session import get_db
+from app.db.models import GitHubTrending
 def save_data(data_list, db, model_class):  # data_list：清洗后的有效数据；db：数据库会话；model_class：模型（如ZhihuHot）
     try:
         for data in data_list:  # 遍历每条数据
@@ -11,3 +13,20 @@ def save_data(data_list, db, model_class):  # data_list：清洗后的有效数�
     except Exception as e:  # 捕获存储异常（如字段不匹配、类型错误）
         db.rollback()  # 回滚事务（避免部分数据写入导致数据库不一致）
         print("存储异常：", str(e))  # 打印异常信息（方便定位问题）
+
+
+def save_github_data(data_list, db):
+    try:
+        #   for item in data_list:
+        #     existing = db.query(GitHubTrending).filter(GitHubTrending.repo_name == item["repo_name"]).first()
+        #     if not existing:
+        #         db.add(GitHubTrending(**item))
+        # db.commit()
+        for data in data_list:
+            db_item = GitHubTrending(**data)
+            db.add(db_item)
+        db.commit()
+        print(f"成功存储 {len(data_list)} 条 GitHub Trending 数据")
+    except Exception as e:
+        db.rollback()
+        print(f"存储 GitHub 数据异常：{str(e)}")

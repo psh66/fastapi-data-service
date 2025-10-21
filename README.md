@@ -103,6 +103,26 @@ pip install fake-useragent
 #作用：发送 HTTP 请求，获取目标网页的 HTML 内容（项目中通过request_utils.py封装了该库的功能）
 pip install requests
 
+
+#自动gith
+ #安装 Selenium 依赖：
+ pip install selenium webdriver-manager
+ #下载对应浏览器的 Driver（如 ChromeDriver），并配置到系统环境变量。
+ #启动定时任务：
+ python scheduler.py
+ #启动 FastAPI 服务
+ uvicorn main:app --reload
+ 
+#动态爬取：通过 Selenium 处理 GitHub 页面的 JS 动态渲染，确保数据完整。
+#反爬优化：代理池避免 IP 封禁，随机 User-Agent 和请求间隔模拟人类行为。
+#数据清洗：Pandas 风格的批量清洗，正则表达式处理复杂格式（如 10.5k 转 10500）。
+#定时部署：APScheduler 实现每日自动爬取，数据存储到数据库长期跟踪趋势。
+#API 接口：支持手动触发爬取，方便调试和集成
+
+#你可以通过以下国内可用的地址下载 ChromeDriver：
+#官方国内镜像地址：https://googlechromelabs.github.io/chrome-for-testing/
+#国内存储地址：http://chromedriver.storage.googleapis.com/index.html
+#镜像站地址：registry.npmmirror.com/binary.html?path=chrome-for-testing/
 ```
 
 是！Python 版本差异会导致 **依赖包兼容性问题**（如某些包对 Python 3.11 支持不全，或语法适配问题）。  
